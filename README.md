@@ -1,1 +1,1 @@
-# SQL-50
+This repository contains my solutions to LeetCode problems.
