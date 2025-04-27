@@ -1,0 +1,5 @@
+/* Write your T-SQL query statement below */
+select cur.id
+from weather cur inner join weather pre
+    on datediff(day, cur.recorddate, pre.recorddate)=-1
+where cur.temperature > pre.temperature;
