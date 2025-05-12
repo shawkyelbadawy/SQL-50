@@ -1,0 +1,10 @@
+/* Write your T-SQL query statement below */
+WITH firstsales AS (
+    SELECT *,
+        RANK() OVER(PARTITION BY product_id ORDER BY year) AS R
+    FROM sales
+)
+
+SELECT product_id, year AS first_year, quantity, price
+FROM firstsales 
+WHERE r = 1;
