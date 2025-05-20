@@ -1,0 +1,22 @@
+/* Write your T-SQL query statement below */
+WITH UserMostRate AS (
+    SELECT TOP(1) u.name AS results, COUNT(mr.user_id) AS count_user
+    FROM Users u INNER JOIN MovieRating mr
+        ON u.user_id = mr.user_id
+    GROUP BY u.name
+    ORDER BY count_user DESC, name ASC
+),
+
+MovieMostRate AS (
+    SELECT TOP(1) m.title AS results, AVG(rating *1.0) AS movie_rating
+    FROM Movies m INNER JOIN MovieRating mr
+        ON m.movie_id = mr.movie_id
+    WHERE mr.created_at >='2020-02-01' AND mr.created_at < '2020-03-01'
+    GROUP BY m.title
+    ORDER BY movie_rating DESC, title ASC
+)
+
+
+SELECT results FROM UserMostRate 
+UNION ALL
+select results  from MovieMostRate 
