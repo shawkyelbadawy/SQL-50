@@ -1,0 +1,20 @@
+/* Write your T-SQL query statement below */
+WITH tiv AS (
+    SELECT tiv_2015
+    FROM insurance 
+    GROUP BY tiv_2015 
+    HAVING COUNT(*) >1
+),
+LatLon AS (
+    SELECT lat, lon 
+    FROM insurance 
+    GROUP BY lat, lon 
+    HAVING COUNT(*) =1
+)
+
+SELECT ROUND(SUM(tiv_2016), 2) AS tiv_2016
+FROM insurance i INNER JOIN tiv t
+    ON i.tiv_2015 = t.tiv_2015
+INNER JOIN LatLon L
+    ON i.lat = l.lat AND i.lon = l.lon;
+
